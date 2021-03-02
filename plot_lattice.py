@@ -25,7 +25,7 @@ with open('%s' % filename, 'r') as f:
                         Pressure.append(data[0]) # the values stored in 'data' are appended to the lists
                         enthalpy.append(data[1])
                         V.append(data[3])
-                        a.append(data[4])
+                        a.append(data[4])  # note which column corresponds to a, b, c
                         b.append(data[5])
                         c.append(data[6])
                         spin.append(data[11])
@@ -36,6 +36,12 @@ with open('%s' % filename, 'r') as f:
 enthalpy = [i/fu  for i in enthalpy] #enthalpy per f.u.
 
 ### PLOT ###
+font = {'family' : 'normal',
+        'weight' : 'bold',
+        'size'   : 16}  # to change the front size and type
+
+plt.rc('font', **font)
+
 fig = plt.figure(figsize=(10,10))
 fig.suptitle("%s" %filename)    
 
@@ -56,7 +62,7 @@ P_smooth = np.linspace(1,19,500)
 c_smooth = BSpline(P_smooth)
 c_smooth02 = cubic_interploation_model(P_smooth)
 
-#ax1.plot(Pressure,enthalpy, c='blue', label='enthalpy')
+ax1.plot(Pressure,a,ls='--',marker='o',c='grey',lw=1, label='a=b')
 ax1.plot(Pressure,c,ls='--',marker='o',c='black',lw=1, label='c')
 #ax1.plot(P_smooth,c_smooth,c='black')
 #ax1.plot(P_smooth,c_smooth02,c='grey')
